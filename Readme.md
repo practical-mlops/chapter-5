@@ -48,4 +48,4 @@ To compile the inference pipeline:
 python inference_pipeline.py
 ```
 
-This will generate a compiled pipeline file (`inference_pipeline.yaml`) that can be used to deploy the pipeline in Kubeflow Pipelines.
+This will generate a compiled pipeline file (`inference_pipeline.yaml`) that can be used to deploy the pipeline in Kubeflow Pipelines. The instructions to deploy Kubeflow can be found in the appendix.
