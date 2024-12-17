@@ -26,6 +26,10 @@ components:
             schemaTitle: system.Dataset
             schemaVersion: 0.0.1
       parameters:
+        access_key:
+          parameterType: STRING
+        minio_host:
+          parameterType: STRING
         mlflow_host:
           parameterType: STRING
         model_name:
@@ -33,6 +37,8 @@ components:
         model_stage:
           parameterType: STRING
         model_type:
+          parameterType: STRING
+        secret_key:
           parameterType: STRING
     outputDefinitions:
       artifacts:
@@ -113,6 +119,12 @@ deploymentSpec:
         command:
         - python3
         - /app/src/run_inference/run_inference.py
+        - --minio_host
+        - '{{$.inputs.parameters[''minio_host'']}}'
+        - --access_key
+        - '{{$.inputs.parameters[''access_key'']}}'
+        - --secret_key
+        - '{{$.inputs.parameters[''secret_key'']}}'
         - --model_name
         - '{{$.inputs.parameters[''model_name'']}}'
         - --model_type
@@ -205,6 +217,10 @@ root:
                 outputArtifactKey: data_output
                 producerTask: retrieve-features-from-feast
           parameters:
+            access_key:
+              componentInputParameter: access_key
+            minio_host:
+              componentInputParameter: minio_host
             mlflow_host:
               componentInputParameter: mlflow_host
             model_name:
@@ -213,6 +229,8 @@ root:
               componentInputParameter: model_stage
             model_type:
               componentInputParameter: model_type
+            secret_key:
+              componentInputParameter: secret_key
         taskInfo:
           name: model-inference
       read-data-from-minio:

@@ -8,6 +8,7 @@ fetch_data_op = kfp.components.load_component_from_file(
 retrieve_features_op = kfp.components.load_component_from_file(
     "components/retrieve_features/component.yaml"
 )
+
 run_inference_op = kfp.components.load_component_from_file(
     "components/run_inference/component.yaml"
 )
@@ -58,6 +59,9 @@ def income_classifier_pipeline(
     )
 
     run_inference_task = run_inference_op(
+        minio_host=minio_host,
+        access_key=access_key,
+        secret_key=secret_key,
         model_name=model_name,
         model_type=model_type,
         model_stage=model_stage,

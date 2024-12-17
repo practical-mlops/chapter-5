@@ -1,22 +1,28 @@
 name: Read Data From Minio
-description: Fetches data from MinIO
-inputs:    #A
+description: Fetches data from MinIO and outputs as a Dataset.
+inputs:    
 - name: minio_host
   type: String
+  description: MinIO host URL.
 - name: access_key
   type: String
+  description: MinIO access key.
 - name: secret_key
   type: String
+  description: MinIO secret key.
 - name: bucket_name
   type: String
+  description: Name of the MinIO bucket.
 - name: file_name
   type: String
-outputs:    #B
+  description: Name of the file to fetch from MinIO.
+outputs:    
 - name: data_output
-  type: Dataset    # Use `Dataset` or `Artifact` for outputs in KFP v2
+  type: Dataset
+  description: Output dataset artifact.
 implementation:
   container:
-    image: 'varunmallya/read-minio-data:latest'    #C
+    image: 'varunmallya/read-minio-data:latest'
     command:
     - python3
     - /app/src/read_data/read_data.py
@@ -31,4 +37,4 @@ implementation:
     - --file_name
     - {inputValue: file_name}
     - --data_output_path
-    - {outputPath: data_output}    #D
+    - {outputPath: data_output}

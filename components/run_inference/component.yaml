@@ -1,6 +1,12 @@
 name: Model Inference
 description: Run model inference after retrieving the model from MLflow
 inputs:
+- name: minio_host
+  type: String
+- name: access_key
+  type: String
+- name: secret_key
+  type: String
 - name: model_name
   type: STRING
 - name: model_type
@@ -22,6 +28,12 @@ implementation:
     command:
     - python3
     - /app/src/run_inference/run_inference.py
+    - --minio_host
+    - {inputValue: minio_host}
+    - --access_key
+    - {inputValue: access_key}
+    - --secret_key
+    - {inputValue: secret_key}
     - --model_name
     - {inputValue: model_name}
     - --model_type

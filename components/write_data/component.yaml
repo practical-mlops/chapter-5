@@ -22,7 +22,7 @@ inputs:
 
 implementation:
   container:
-    image: 'varunmallya/write-minio-data:latest' 
+    image: 'varunmallya/write-minio-data:latest'
     command:
       - python3
       - /app/src/write_data/write_data.py
