@@ -12,8 +12,21 @@ Install all the requirements by running
 ```
 pip install -r requirements.txt
 ```
+## Registering Features in Feast  
+To register features in Feast please build and push the docker image which will be eventually used to run the Kubernetes Job. The image contains feature and entity definitions.
 
-## Building and Pushing Docker Images
+'''
+cd scripts/feast
+docker build -t <docker-username>/feast-job:latest .
+docker push <docker-username>/feast-job:latest
+'''
+After which can run the Kubernetes job by running
+```
+kubectl apply -f scripts/feast/k8s/job.yaml
+```
+Your job shoulc successfull run and create a registry.db in minio's feature-registry bucket.
+
+## Building and Pushing Docker Images For Pipeline
 Please change the image names in each component.yaml to point to your Docker username. (.i.e replace `varunmallya` with your Docker username)  
 The project uses a Makefile to simplify building and pushing Docker images. Here are the available commands:
 
